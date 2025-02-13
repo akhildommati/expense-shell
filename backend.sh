@@ -48,11 +48,17 @@ if [ $? -ne 0 ]
 useradd expense
   VALIDATE $? "Creating expense user"
   else
-    echo -e "Mysql Root password is already set $Y SKIPPING $N" 
+    echo -e "expense user already exist $Y SKIPPING $N" 
     fi
 
-mkdir /app 
-VALIDATE $? "Creating /app directory"
+if [ $? -ne 0 ]
+ then
+ echo "mkdir app is not created" &>>$LOG_FILE_NAME
+mkdir /app
+  VALIDATE $? "Creating /app directory"
+  else
+    echo -e "app directory already exist $Y SKIPPING $N" 
+    fi
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Downloading backend code"
