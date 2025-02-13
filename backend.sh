@@ -33,66 +33,47 @@ echo "Script started executing at : $TIMESTAMP" &>>$LOG_FILE
 
 CHECK_ROOT
 
-dnf module disable nodejs -y &>>$LOG_FILE_NAME
+dnf module disable nodejs -y
 VALIDATE $? "Disabling nodejs"
 
-dnf module enable nodejs:20 -y &>>$LOG_FILE_NAME
+dnf module enable nodejs:20 -y
 VALIDATE $? "Enabling nodejs"
 
-dnf install nodejs -y &>>$LOG_FILE_NAME
+dnf install nodejs -y
 VALIDATE $? "Installing nodejs"
 
-if [ $? -ne 0 ]
- then
- echo "useradd expense is not set" &>>$LOG_FILE_NAME
- useradd expense
-  VALIDATE $? "Setting useradd expense" &>>$LOG_FILE_NAME
-  else
-    echo -e "useradd expense is already set $Y SKIPPING $N" 
-    fi
-  
-if [ $? -ne 0 ]
- then
- echo "mkdir /app is not set" &>>$LOG_FILE_NAME
-  mkdir /app
-    VALIDATE $? "Creating app directory" &>>$LOG_FILE_NAME
-    else
-        echo -e "mkdir /app is already set $Y SKIPPING $N" 
-        fi
+useradd expense
+VALIDATE $? "Adding user expense"
 
-curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE_NAME
+mkdir /app
+VALIDATE $? "Creating directory /app"
+
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
 VALIDATE $? "Downloading backend code"
 
 cd /app
-VALIDATE $? "Changing directory to /app"
 
-unzip /tmp/backend.zip &>>$LOG_FILE_NAME
+unzip /tmp/backend.zip
 VALIDATE $? "Extracting backend code"
 
-npm install &>>$LOG_FILE_NAME
+npm install
 VALIDATE $? "Installing nodejs dependencies"
 
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
 #prepare mysql schema
 
-dnf install mysql -y &>>$LOG_FILE_NAME
+dnf install mysql -y
 VALIDATE $? "Installing mysql"
 
-mysql -h mysql.manjulafoods.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE_NAME
+mysql -h mysql.manjulafoods.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
 VALIDATE $? "Creating mysql schema"
 
-systemctl daemon-reload &>>$LOG_FILE_NAME
+systemctl daemon-reload
 VALIDATE $? "Reloading systemd"
 
-systemctl enable backend &>>$LOG_FILE_NAME
+systemctl enable backend
 VALIDATE $? "Enabling backend"
 
-systemctl start backend &>>$LOG_FILE_NAME
+systemctl start backend
 VALIDATE $? "Starting backend"
-
-systemctl restart backend &>>$LOG_FILE_NAME
-VALIDATE $? "Restarting backend"
-
-
-
