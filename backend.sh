@@ -33,19 +33,19 @@ echo "Script started executing at : $TIMESTAMP" &>>$LOG_FILE
 
 CHECK_ROOT
 
-dnf module disable nodejs -y &>>$LOG_FILE_NAME  
-VALIDATE $? "Disabling nodejs module"
+dnf module disable nodejs -y &>>$LOG_FILE_NAME
+VALIDATE $? "Disabling nodejs"
 
 dnf module enable nodejs:20 -y &>>$LOG_FILE_NAME
-VALIDATE $? "Enabling nodejs module"
+VALIDATE $? "Enabling nodejs"
 
 dnf install nodejs -y &>>$LOG_FILE_NAME
 VALIDATE $? "Installing nodejs"
 
-useradd expense &>>$LOG_FILE_NAME
+useradd expense
 VALIDATE $? "Adding user expense"
 
-mkdir /app &>>$LOG_FILE_NAME
+mkdir /app 
 VALIDATE $? "Creating /app directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE_NAME
@@ -54,26 +54,33 @@ VALIDATE $? "Downloading backend code"
 cd /app
 
 unzip /tmp/backend.zip &>>$LOG_FILE_NAME
-VALIDATE $? "Extracting backend code"
 
-npm install     &>>$LOG_FILE_NAME
+cd /app
+
+npm install &>>$LOG_FILE_NAME
 VALIDATE $? "Installing nodejs dependencies"
 
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
-#prepare MySQL Schema
+#prepare mysql schema
 
 dnf install mysql -y &>>$LOG_FILE_NAME
-VALIDATE $? "Installing mysql client"
+VALIDATE $? "Installing mysql"
 
 mysql -h mysql.manjulafoods.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE_NAME
-VALIDATE $? "Setting up the transactions schema and tables"
+VALIDATE $? "Creating mysql schema"
 
 systemctl daemon-reload &>>$LOG_FILE_NAME
-VALIDATE $? "Reloading systemctl daemon"
+VALIDATE $? "Reloading systemd"
 
-systemctl enable backend    &>>$LOG_FILE_NAME
+systemctl enable backend &>>$LOG_FILE_NAME
 VALIDATE $? "Enabling backend"
 
-systemctl start backend     &>>$LOG_FILE_NAME
+systemctl start backend &>>$LOG_FILE_NAME
 VALIDATE $? "Starting backend"
+
+systemctl restart backend &>>$LOG_FILE_NAME
+VALIDATE $? "Restarting backend"
+
+
+
