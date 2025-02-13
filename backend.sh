@@ -56,13 +56,10 @@ cd /app
 unzip /tmp/backend.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Extracting backend code"
 
-cd /app
-
-
 npm install &>>$LOG_FILE_NAME
 VALIDATE $? "Installing nodejs dependencies"
 
-cp /C/devops/daws-82s/repos/expense-shell/backend.service /etc/systemd/system/backend.service
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
 #prepare mysql schema
 
