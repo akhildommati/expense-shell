@@ -42,8 +42,14 @@ VALIDATE $? "Enabling nodejs"
 dnf install nodejs -y &>>$LOG_FILE_NAME
 VALIDATE $? "Installing nodejs"
 
+if [ $? -ne 0 ]
+ then
+ echo "useradd expense is not created &>>$LOG_FILE_NAME
 useradd expense
-VALIDATE $? "Creating expense user"
+  VALIDATE $? "Creating expense user"
+  else
+    echo -e "Mysql Root password is already set $Y SKIPPING $N" 
+    fi
 
 mkdir /app 
 VALIDATE $? "Creating /app directory"
