@@ -48,8 +48,15 @@ else
     sudo useradd expense || { echo "Failed to add user"; exit 1; }
 fi
 
-mkdir /app &>>$LOG_FILE_NAME
-VALIDATE $? "Creating directory /app"
+ if [ $? -ne 0 ]
+ then
+ echo "mkdir app not set" &>>$LOG_FILE_NAME
+ mkdir /app
+    VALIDATE $? "Creating directory /app"
+    else
+    echo -e "mkdir app already exists $Y SKIPPING $N" 
+    fi
+
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Downloading backend code"
