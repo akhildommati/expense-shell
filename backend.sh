@@ -44,26 +44,27 @@ VALIDATE $? "Installing nodejs"
 
 if [ $? -ne 0 ]
  then
- echo "useradd expense is not created" &>>$LOG_FILE_NAME
-useradd expense
-  VALIDATE $? "Creating expense user"
+ echo "useradd expense is not set" &>>$LOG_FILE_NAME
+ useradd expense
+  VALIDATE $? "Setting useradd expense" &>>$LOG_FILE_NAME
   else
-    echo -e "expense user already exist $Y SKIPPING $N" 
+    echo -e "useradd expense is already set $Y SKIPPING $N" 
     fi
-
+  
 if [ $? -ne 0 ]
  then
- echo "mkdir app is not created" &>>$LOG_FILE_NAME
-mkdir /app
-  VALIDATE $? "Creating /app directory"
-  else
-    echo -e "app directory already exist $Y SKIPPING $N" 
-    fi
+ echo "mkdir /app is not set" &>>$LOG_FILE_NAME
+  mkdir /app
+    VALIDATE $? "Creating app directory" &>>$LOG_FILE_NAME
+    else
+        echo -e "mkdir /app is already set $Y SKIPPING $N" 
+        fi
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Downloading backend code"
 
 cd /app
+VALIDATE $? "Changing directory to /app"
 
 unzip /tmp/backend.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Extracting backend code"
