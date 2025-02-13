@@ -50,9 +50,6 @@ else
 fi
 
 
-useradd expense
-VALIDATE $? "Adding user expense"
-
 mkdir /app 
 VALIDATE $? "Creating /app directory"
 
