@@ -44,7 +44,7 @@ VALIDATE $? "Installing nodejs"
 
 if [ $? -ne 0 ]
  then
- echo "useradd expense is not created &>>$LOG_FILE_NAME
+ echo "useradd expense is not created" &>>$LOG_FILE_NAME
 useradd expense
   VALIDATE $? "Creating expense user"
   else
