@@ -42,10 +42,13 @@ VALIDATE $? "Enabling nodejs"
 dnf install nodejs -y &>>$LOG_FILE_NAME
 VALIDATE $? "Installing nodejs"
 
-if id "expense" &>/dev/null; then
-    echo "User expense already exists, skipping..."
+id expense &>>$LOG_FILE_NAME
+if [ $? -ne 0 ]
+then
+useradd expense     &>>$LOG_FILE_NAME
+VALIDATE $? "Creating user expense"
 else
-    sudo useradd expense || { echo "Failed to add user"; exit 1; }
+echo -e "User expense already exists $Y SKIPPING $N"
 fi
 
  if [ $? -ne 0 ]
