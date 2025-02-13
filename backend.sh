@@ -59,7 +59,7 @@ VALIDATE $? "Extracting backend code"
 npm install &>>$LOG_FILE_NAME
 VALIDATE $? "Installing nodejs dependencies"
 
-cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
+cp /C/devops/daws-82s/repos/expense-shell/backend.service /etc/systemd/system/backend.service
 
 #prepare mysql schema
 
