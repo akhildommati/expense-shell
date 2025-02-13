@@ -29,6 +29,8 @@ exit 1 # other than zero
 fi
 }
 
+mkdir -p $LOGS_FOLDER
+
 echo "Script started executing at : $TIMESTAMP" &>>$LOG_FILE
 
 CHECK_ROOT
