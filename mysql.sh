@@ -48,14 +48,3 @@ VALIDATE $? "Starting Mysqld Service"
 mysql_secure_installation --set-root-pass ExpenseApp@123 &>>$LOG_FILE_NAME
 VALIDATE $? "Securing Mysqld Installation"
 
-mysql -h mysql.akhildommati.fun -u root -p<password> &>>$LOG_FILE_NAME
-VALIDATE $? "Connecting to Mysqld"
-
-show databases; &>>$LOG_FILE_NAME
-VALIDATE $? "Showing Databases"
-
-show tables; &>>$LOG_FILE_NAME
-VALIDATE $? "Showing Tables"
-
-select * from <table_name>; &>>$LOG_FILE_NAME
-VALIDATE $? "Selecting Data from Table"
