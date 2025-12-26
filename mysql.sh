@@ -46,5 +46,20 @@ systemctl start mysqld &>>$LOG_FILE_NAME
 VALIDATE $? "Starting Mysqld Service"
 
 mysql_secure_installation --set-root-pass ExpenseApp@123 &>>$LOG_FILE_NAME
-VALIDATE $? "Securing Mysqld Installation"
+VALIDATE $? "SeTTING ROOT PASSWORD FOR MYSQL"
+
+mysql -h mysql.akhildommati.fun -u root -p<password> &>>$LOG_FILE_NAME
+VALIDATE $? "Connecting to Remote Mysqld Server"
+
+mysql 
+VALIDATE $? "Starting Mysql CLI"
+
+show databases;
+VALIDATE $? "Showing Databases"
+
+show tables;
+VALIDATE $? "Showing Tables"
+
+select * from <table_name>; 
+VALIDATE $? "Selecting Data from Table"
 
