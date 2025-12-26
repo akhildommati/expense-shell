@@ -48,7 +48,7 @@ VALIDATE $? "Starting Mysqld Service"
 mysql_secure_installation --set-root-pass ExpenseApp@123 &>>$LOG_FILE_NAME
 VALIDATE $? "SeTTING ROOT PASSWORD FOR MYSQL"
 
-mysql -h mysql.akhildommati.fun -u root -p<password> &>>$LOG_FILE_NAME
+mysql -h mysql.akhildommati.fun -u root -p<password> 
 VALIDATE $? "Connecting to Remote Mysqld Server"
 
 mysql 
