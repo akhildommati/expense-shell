@@ -42,9 +42,6 @@ VALIDATE $? "Enabling Mysqld Service"
 systemctl start mysqld &>>$LOG_FILE_NAME
 VALIDATE $? "Starting Mysqld Service"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1 
-VALIDATE $? "SeTTING ROOT PASSWORD FOR MYSQL"
-
 mysql -h mysql.akhildommati.fun -u root -pExpenseApp@1 -e &>>$LOG_FILE_NAME
 
 if [ $? -ne 0 ]
