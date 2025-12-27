@@ -45,3 +45,13 @@ VALIDATE $? "Starting Mysqld Service"
 mysql_secure_installation --set-root-pass ExpenseApp@1 
 VALIDATE $? "SeTTING ROOT PASSWORD FOR MYSQL"
 
+mysql -h mysql.akhildommati.fun -u root -pExpenseApp@1 -e &>>$LOG_FILE_NAME
+
+if [ $? -ne 0 ]
+then
+    echo "MySql Root Password is not set properly" &>>$LOG_FILE_NAME
+    mysql_secure_installation --set-root-pass ExpenseApp@1
+    VALIDATE $? "Re-Setting ROOT PASSWORD FOR MYSQL"
+else
+    echo -e "MySql Root Password is set properly ......$Y Skipping $N" 
+fi
