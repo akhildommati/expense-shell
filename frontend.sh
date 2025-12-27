@@ -42,16 +42,17 @@ systemctl start nginx &>>$LOG_FILE_NAME
 VALIDATE $? "Starting Nginx Service"
 
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE_NAME
-VALIDATE $? "Removing Default Nginx Files"
+VALIDATE $? "Removing Default Nginx Content"
 
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Downloading Frontend Zip File"
 
-cd /usr/share/nginx/html &>>$LOG_FILE_NAME
-VALIDATE $? "Changing Directory to Nginx Html Folder"
+cd /usr/share/nginx/html  &>>$LOG_FILE_NAME
 
 unzip /tmp/frontend.zip &>>$LOG_FILE_NAME
-VALIDATE $? "Unzipping Frontend Files"
+VALIDATE $? "Extracting Frontend Zip File"
 
-systemctl restart nginx 
+systemctl restart nginx &>>$LOG_FILE_NAME
 VALIDATE $? "Restarting Nginx Service"
+
+
