@@ -53,7 +53,7 @@ VALIDATE $? "Downloading Backend Zip File"
 
 cd /app 
 
-unzip /tmp/backend.zip &>>$LOG_FILE_NAME
+unzip /tmp/backend.zip
 VALIDATE $? "Unzipping Backend Files"
 
 npm install &>>$LOG_FILE_NAME
@@ -74,5 +74,5 @@ VALIDATE $? "Reloading Systemd Daemon"
 systemctl enable backend &>>$LOG_FILE_NAME
 VALIDATE $? "Enabling Backend Service"
 
-systemctl restart backend &>>$LOG_FILE_NAME
-VALIDATE $? "Restarting Backend Service"
+systemctl start backend &>>$LOG_FILE_NAME
+VALIDATE $? "starting Backend Service"
