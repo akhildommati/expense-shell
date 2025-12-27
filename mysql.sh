@@ -42,7 +42,7 @@ VALIDATE $? "Enabling Mysqld Service"
 systemctl start mysqld &>>$LOG_FILE_NAME
 VALIDATE $? "Starting Mysqld Service"
 
-mysql -h mysql.akhildommati.fun -u root -pExpenseApp@1 -e &>>$LOG_FILE_NAME
+mysql -h mysql.akhildommati.fun -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE_NAME
 
 if [ $? -ne 0 ]
 then
