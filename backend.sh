@@ -62,20 +62,17 @@ VALIDATE $? "Installing NPM Packages"
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE_NAME
 VALIDATE $? "Copying Backend Service File"
 
-systemctl daemon-reload &>>$LOG_FILE_NAME
-VALIDATE $? "Reloading Systemd Daemon"
-
-systemctl start backend &>>$LOG_FILE_NAME
-VALIDATE $? "Starting Backend Service"
-
-systemctl enable backend &>>$LOG_FILE_NAME
-VALIDATE $? "Enabling Backend Service"
-
 dnf install mysql -y &>>$LOG_FILE_NAME
 VALIDATE $? "Installing Mysql Client"
 
 mysql -h mysql.akhildommati.fun -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE_NAME
 VALIDATE $? "Creating Expense Database and Tables"
+
+systemctl daemon-reload &>>$LOG_FILE_NAME
+VALIDATE $? "Reloading Systemd Daemon"
+
+systemctl enable backend &>>$LOG_FILE_NAME
+VALIDATE $? "Enabling Backend Service"
 
 systemctl restart backend &>>$LOG_FILE_NAME
 VALIDATE $? "Restarting Backend Service"
