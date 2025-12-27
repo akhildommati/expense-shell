@@ -44,6 +44,12 @@ VALIDATE $? "Installing Nodejs"
 
 useradd expenseapp 
 VALIDATE $? "Adding ExpenseApp User"
+if [ $? -ne 0 ]
+then
+    echo "Adding ExpenseApp User failed" &>>$LOG_FILE_NAME
+else
+    echo "ExpenseApp User added successfully" &>>$LOG_FILE_NAME
+fi
 
 mkdir /app &>>$LOG_FILE_NAME
 VALIDATE $? "Creating app Directory"
