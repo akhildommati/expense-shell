@@ -54,5 +54,8 @@ VALIDATE $? "Changing Directory to Nginx Html Folder"
 unzip /tmp/frontend.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Extracting Frontend Zip File"
 
+mv /usr/share/nginx/html/expense.conf/* /usr/share/nginx/html/ &>>$LOG_FILE_NAME
+VALIDATE $? "Moving Extracted Content to Html Folder"
+
 systemctl restart nginx &>>$LOG_FILE_NAME
 VALIDATE $? "Restarting Nginx Service"
