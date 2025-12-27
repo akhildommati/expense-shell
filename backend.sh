@@ -58,8 +58,7 @@ curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expen
 VALIDATE $? "Downloading Backend Zip File"
 
 cd /app 
-rm -rf /app/* &>>$LOG_FILE_NAME
-VALIDATE $? "Cleaning up app Directory"
+rm -rf /app/* 
 
 unzip /tmp/backend.zip -y &>>$LOG_FILE_NAME
 VALIDATE $? "Unzipping Backend Files"
