@@ -52,5 +52,5 @@ VALIDATE $? "Changing Directory to Nginx Html Folder"
 unzip /tmp/frontend.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Unzipping Frontend Files"
 
-systemctl restart nginx &>>$LOG_FILE_NAME
+systemctl restart nginx 
 VALIDATE $? "Restarting Nginx Service"
