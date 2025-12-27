@@ -29,7 +29,6 @@ CHECK_ROOT(){
     fi  
 }
 
-mkdir -p $LOGS_FOLDER
 echo "Script started executed at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 CHECK_ROOT
@@ -49,11 +48,11 @@ VALIDATE $? "Removing Default Nginx Content"
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Downloading Frontend Zip File"
 
-cd /usr/share/nginx/html  &>>$LOG_FILE_NAME
+cd /usr/share/nginx/html   &>>$LOG_FILE_NAME
+VALIDATE $? "Changing Directory to Nginx Html Folder"
 
 unzip /tmp/frontend.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Extracting Frontend Zip File"
-
 
 systemctl restart nginx &>>$LOG_FILE_NAME
 VALIDATE $? "Restarting Nginx Service"
