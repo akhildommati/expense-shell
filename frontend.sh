@@ -29,6 +29,7 @@ CHECK_ROOT(){
     fi  
 }
 
+mkdir -p $LOGS_FOLDER
 echo "Script started executed at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 dnf install nginx -y &>>$LOG_FILE_NAME
