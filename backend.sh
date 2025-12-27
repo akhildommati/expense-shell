@@ -42,13 +42,13 @@ VALIDATE $? "Enabling Nodejs 20 Module"
 dnf install nodejs -y &>>$LOG_FILE_NAME
 VALIDATE $? "Installing Nodejs"
 
-useradd expenseapp 
-VALIDATE $? "Adding ExpenseApp User"
+id expense &>>$LOG_FILE_NAME
 if [ $? -ne 0 ]
 then
-    echo "Adding ExpenseApp User failed" &>>$LOG_FILE_NAME
+    useradd expense &>>$LOG_FILE_NAME
+    VALIDATE $? "Creating Expense User"
 else
-    echo "ExpenseApp User added successfully" &>>$LOG_FILE_NAME
+    echo -e "Expense User already......$Y exists $N"
 fi
 
 mkdir /app &>>$LOG_FILE_NAME
